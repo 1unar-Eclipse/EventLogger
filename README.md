@@ -5,4 +5,6 @@ This is primarily intended for plugin developers to figure out cues from events.
 
 To-do:
  - Format timestamps by user's timezone
- - Ability to split events by file
+ - Ability to split events by file (suggested by Plextora)
+
+This plugin was made using the plugin template found [here](https://github.com/LatiteScripting/Template).
