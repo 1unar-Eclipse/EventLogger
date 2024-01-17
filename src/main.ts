@@ -130,7 +130,7 @@ function now() {
   Position: (x), (y)
 */
 client.on("click", e => {
-    if(click.getValue()) {
+    if(click.getValue() && mod.isEnabled()) {
         let down = e.isDown ? "Down" : "Up"; // bool ? val if true : val if false
         let position = e.mouseX.toString() + ", " + e.mouseY.toString();
         logToFile(
@@ -151,7 +151,7 @@ client.on("click", e => {
   [Down/Up]
 */
 client.on("key-press", e => {
-    if(keyPress.getValue()) {
+    if(keyPress.getValue() && mod.isEnabled()) {
         let down = e.isDown ? "Down" : "Up"; // bool ? valIfTrue : valIfFalse
         logToFile(
             now() +
@@ -168,7 +168,7 @@ client.on("key-press", e => {
   Characters: (characters)
 */
 client.on("text-input", e => {
-    if(textInput.getValue()) {
+    if(textInput.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Text input\n  Characters: " + e.characters);
     }
 });
@@ -179,7 +179,7 @@ client.on("text-input", e => {
   “(message)”
 */
 client.on("receive-chat", e => {
-    if(receiveChat.getValue()) {
+    if(receiveChat.getValue() && mod.isEnabled()) {
         let chatType = e.type;
         let message = e.message;
         let sender = (e.sender !== "") ? ("from: " + e.sender) : "";
@@ -194,7 +194,7 @@ client.on("receive-chat", e => {
   “(message)”
 */
 client.on("send-chat", e => {
-    if(sendChat.getValue()) {
+    if(sendChat.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Message sent\n  " + e.message);
     }
 });
@@ -205,7 +205,7 @@ client.on("send-chat", e => {
   “(text)”
 */
 client.on("title", e => {
-    if(title.getValue()) {
+    if(title.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Title received\n  Type: " + e.type + "\n  " + e.text)
     }
 });
@@ -214,7 +214,7 @@ client.on("title", e => {
 (timestamp): Loaded plugin (name) (version) by (author)
 */
 client.on("load-script", e => {
-    if(loadScript.getValue()) {
+    if(loadScript.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Loaded plugin " + e.scriptName + " " + e.scriptVersion + " by " + e.scriptAuthor);
     }
 });
@@ -223,7 +223,7 @@ client.on("load-script", e => {
 (timestamp): Unloaded plugin (name) (version) by (author)
 */
 client.on("unload-script", e => {
-    if(unloadScript.getValue()) {
+    if(unloadScript.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Unloaded plugin " + e.scriptName + " " + e.scriptVersion + " by " + e.scriptAuthor);
     }
 
@@ -236,7 +236,7 @@ client.on("unload-script", e => {
 (timestamp): App suspended
 */
 client.on("app-suspended", e => {
-    if(appSuspended.getValue()) {
+    if(appSuspended.getValue() && mod.isEnabled()) {
         logToFile(now() + ": App suspended");
     }
 });
@@ -245,7 +245,7 @@ client.on("app-suspended", e => {
 (timestamp): Joined a game
 */
 client.on("join-game", e => {
-    if(joinGame.getValue()) {
+    if(joinGame.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Joined game");
     }
 });
@@ -254,7 +254,7 @@ client.on("join-game", e => {
 (timestamp): Left a game
 */
 client.on("leave-game", e => {
-    if(leaveGame.getValue()) {
+    if(leaveGame.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Left a game");
     }
 });
@@ -263,7 +263,7 @@ client.on("leave-game", e => {
 (timestamp): World ticked
 */
 client.on("world-tick", e => {
-    if(worldTick.getValue()) {
+    if(worldTick.getValue() && mod.isEnabled()) {
         logToFile(now() + ": World ticked")
     }
 });
