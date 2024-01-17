@@ -118,7 +118,7 @@ function logToFile(text: string) {
 * Returns the current Unix timestamp as a string.
 */
 function now() {
-    return Date.now().toLocaleString(); // easiest formatting fix of my life
+    return Date.now().toString();
 }
 
 // Event hooks
