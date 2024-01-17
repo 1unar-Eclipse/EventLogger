@@ -185,7 +185,7 @@ client.on("receive-chat", e => {
         let sender = (e.sender !== "") ? ("from: " + e.sender) : "";
         let xuid = (e.xuid !== "") ? (" (" + e.xuid + ")") : "";
 
-        logToFile((now() + ": Received " + chatType + "\n  “" + message + "”" + "\n  " + sender + xuid).trim());
+        logToFile((now() + ": Received " + chatType + "\n  " + message + "\n  " + sender + xuid).trim());
     }
 });
 
@@ -195,7 +195,7 @@ client.on("receive-chat", e => {
 */
 client.on("send-chat", e => {
     if(sendChat.getValue()) {
-        logToFile(now() + ": Message sent\n  “" + e.message + "”");
+        logToFile(now() + ": Message sent\n  " + e.message);
     }
 });
 
@@ -206,7 +206,7 @@ client.on("send-chat", e => {
 */
 client.on("title", e => {
     if(title.getValue()) {
-        logToFile(now() + ": Title received\n  Type: " + e.type + "\n  “" + e.text + "”")
+        logToFile(now() + ": Title received\n  Type: " + e.type + "\n  " + e.text)
     }
 });
 
