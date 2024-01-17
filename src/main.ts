@@ -94,7 +94,7 @@ let textInput = mod.addBoolSetting(
 
 // Create (and technically cache) file
 let fileName = "Log_" + now() + ".txt";
-fs.write(fileName, util.stringToBuffer(""), (err: number) => errorHandler(err)); // initializes file
+fs.writeSync(fileName, util.stringToBuffer("")); // initializes file
 
 function logToFile(text: string) {
     let file = new Uint8Array(0);
@@ -103,22 +103,22 @@ function logToFile(text: string) {
     } 
     let fileContents = util.bufferToString(file); // store file in a readable format
     let newFile = fileContents.concat(text, "\n"); // add to the file
-    fs.write(fileName, util.stringToBuffer(newFile), (err: number) => errorHandler(err)); // save the new file
+    fs.writeSync(fileName, util.stringToBuffer(newFile)); // save the new file
 }
 
-function errorHandler(code: number) {
-    // Error code 2: File doesn't exist
-    // Error codes 5 and 19 - Access denied (probably UWP shenanigans)
-    // Others: ???
-    if(code != 0)
-        client.showNotification("Something went wrong: error code " + code.toString());
-}
+// function errorHandler(code: number) {
+//     // Error code 2: File doesn't exist
+//     // Error codes 5 and 19 - Access denied (probably UWP shenanigans)
+//     // Others: ???
+//     if(code != 0)
+//         client.showNotification("Something went wrong: error code " + code.toString());
+// }
 
 /** 
 * Returns the current Unix timestamp as a string.
 */
 function now() {
-    return Date.now().toString();
+    return Date.now().toLocaleString(); // easiest formatting fix of my life
 }
 
 // Event hooks
