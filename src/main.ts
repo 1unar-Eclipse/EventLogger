@@ -83,6 +83,12 @@ let worldTick = mod.addBoolSetting(
     "Logs when the world ticks (not recommended)",
     false
 );
+let textInput = mod.addBoolSetting(
+    "textInput",
+    "Log Text Inputs",
+    "Log finalized character inputs",
+    false
+);
 
 // File management
 
@@ -154,6 +160,16 @@ client.on("key-press", e => {
             "\n  " +
             down
         );
+    }
+});
+
+/* Text input format:
+(timestamp): Text input
+  Characters: (characters)
+*/
+client.on("text-input", e => {
+    if(textInput.getValue()) {
+        logToFile(now() + ": Text input\n  Characters: " + e.characters);
     }
 });
 
