@@ -94,16 +94,19 @@ let textInput = mod.addBoolSetting(
 
 // Create (and technically cache) file
 let fileName = "Log_" + now() + ".txt";
-fs.writeSync(fileName, util.stringToBuffer("")); // initializes file
+fs.write(fileName, util.stringToBuffer("")); // initializes file
 
 function logToFile(text: string) {
     let file = new Uint8Array(0);
-    if(fs.existsSync(fileName)) {
-       file = fs.readSync(fileName); // get file
-    } 
+    if(fs.exists(fileName)) {
+       file = fs.read(fileName); // get file
+    }
+    else {
+        client.showNotification("EventLogger: Something went horribly wrong when attempting to log");
+    }
     let fileContents = util.bufferToString(file); // store file in a readable format
     let newFile = fileContents.concat(text, "\n"); // add to the file
-    fs.writeSync(fileName, util.stringToBuffer(newFile)); // save the new file
+    fs.write(fileName, util.stringToBuffer(newFile)); // save the new file
 }
 
 // function errorHandler(code: number) {
@@ -225,10 +228,6 @@ client.on("load-script", e => {
 client.on("unload-script", e => {
     if(unloadScript.getValue() && mod.isEnabled()) {
         logToFile(now() + ": Unloaded plugin " + e.scriptName + " " + e.scriptVersion + " by " + e.scriptAuthor);
-    }
-
-    if(e.scriptName === "EventLogger") {
-        client.getModuleManager().deregisterModule(mod);
     }
 });
 
