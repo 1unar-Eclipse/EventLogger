@@ -103,10 +103,9 @@ function logToFile(text: string) {
     }
     else {
         client.showNotification("EventLogger: Something went horribly wrong when attempting to log");
+        return;
     }
-    let fileContents = util.bufferToString(file); // store file in a readable format
-    let newFile = fileContents.concat(text, "\n"); // add to the file
-    fs.write(fileName, util.stringToBuffer(newFile)); // save the new file
+    fs.append(fileName, util.stringToBuffer(text.concat("\n"))); // append to file
 }
 
 // function errorHandler(code: number) {
