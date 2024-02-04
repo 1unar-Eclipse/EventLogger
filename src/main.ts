@@ -90,6 +90,25 @@ let textInput = mod.addBoolSetting(
     false
 );
 
+// Common functions
+
+/** 
+ * Returns the current Unix timestamp as a string.
+ * @returns String form of the current Unix timestamp
+ */
+function now() {
+    return Date.now().toString();
+}
+
+/**
+ * Bandage fix function for reading files.
+ * @param buf Buffer to convert to string
+ * @returns Converted buffer
+ */
+function bufferToString(buf: Uint8Array) {
+    return util.bufferToString(buf).split("\r").join("");
+}
+
 // File management
 
 // Create (and technically cache) file
@@ -97,30 +116,18 @@ let fileName = "Log_" + now() + ".txt";
 fs.write(fileName, util.stringToBuffer("")); // initializes file
 
 function logToFile(text: string) {
-    let file = new Uint8Array(0);
+    let file: string;
     if(fs.exists(fileName)) {
-       file = fs.read(fileName); // get file
+       file = bufferToString(fs.read(fileName)); // get file
     }
     else {
         client.showNotification("EventLogger: Something went horribly wrong when attempting to log");
         return;
     }
-    fs.append(fileName, util.stringToBuffer(text.concat("\n"))); // append to file
-}
-
-// function errorHandler(code: number) {
-//     // Error code 2: File doesn't exist
-//     // Error codes 5 and 19 - Access denied (probably UWP shenanigans)
-//     // Others: ???
-//     if(code != 0)
-//         client.showNotification("Something went wrong: error code " + code.toString());
-// }
-
-/** 
-* Returns the current Unix timestamp as a string.
-*/
-function now() {
-    return Date.now().toString();
+    // append to file
+    fs.write(fileName, util.stringToBuffer(
+        file.concat(text, "\n")
+    ));
 }
 
 // Event hooks
