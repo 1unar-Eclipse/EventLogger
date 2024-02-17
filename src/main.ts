@@ -100,15 +100,6 @@ function now() {
     return Date.now().toString();
 }
 
-/**
- * Bandage fix function for reading files.
- * @param buf Buffer to convert to string
- * @returns Converted buffer
- */
-function bufferToString(buf: Uint8Array) {
-    return util.bufferToString(buf).split("\r").join("");
-}
-
 // File management
 
 // Create (and technically cache) file
@@ -116,16 +107,14 @@ let fileName = "Log_" + now() + ".txt";
 fs.write(fileName, util.stringToBuffer("")); // initializes file
 
 function logToFile(text: string) {
-    let file: string;
     if(fs.exists(fileName)) {
-       file = bufferToString(fs.read(fileName)); // get file
+       // append to file
+        fs.append(fileName, util.stringToBuffer(text.concat("\n")));
     }
     else {
         client.showNotification("EventLogger: Something went horribly wrong when attempting to log");
         return;
     }
-    // append to file
-    fs.append(fileName, util.stringToBuffer(text))
 }
 
 // Event hooks
