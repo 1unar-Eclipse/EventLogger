@@ -125,9 +125,7 @@ function logToFile(text: string) {
         return;
     }
     // append to file
-    fs.write(fileName, util.stringToBuffer(
-        file.concat(text, "\n")
-    ));
+    fs.append(fileName, util.stringToBuffer(text))
 }
 
 // Event hooks
