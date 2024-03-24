@@ -89,6 +89,12 @@ let textInput = mod.addBoolSetting(
     "Log finalized character inputs",
     false
 );
+let worldChange = mod.addBoolSetting(
+    "worldChange",
+    "Log World Changes",
+    "Logs when the world changes (ex. dimensions, transfer packets)",
+    true
+)
 
 // Common functions
 
@@ -257,5 +263,11 @@ client.on("leave-game", e => {
 client.on("world-tick", e => {
     if(worldTick.getValue() && mod.isEnabled()) {
         logToFile(now() + ": World ticked")
+    }
+});
+
+client.on("world-change", e => {
+    if(worldChange.getValue() && mod.isEnabled()) {
+        logToFile(now() + ": Worldchanged")
     }
 });
