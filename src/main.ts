@@ -266,8 +266,8 @@ client.on("world-tick", e => {
     }
 });
 
-client.on("world-change", e => {
+client.on("change-dimension", e => {
     if(worldChange.getValue() && mod.isEnabled()) {
-        logToFile(now() + ": Worldchanged")
+        logToFile(now() + ": World changed")
     }
 });
