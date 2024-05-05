@@ -109,7 +109,7 @@ function now() {
 // File management
 
 // Create (and technically cache) file
-let fileName = "Log_" + now() + ".txt";
+let fileName = "EventLogger_" + now() + ".txt";
 fs.write(fileName, util.stringToBuffer("")); // initializes file
 
 function logToFile(text: string) {
