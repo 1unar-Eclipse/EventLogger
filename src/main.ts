@@ -268,6 +268,6 @@ client.on("world-tick", e => {
 
 client.on("change-dimension", e => {
     if(worldChange.getValue() && mod.isEnabled()) {
-        logToFile(now() + ": World changed")
+        logToFile(now() + ": Dimension changed")
     }
 });
