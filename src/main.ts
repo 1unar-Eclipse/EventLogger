@@ -91,8 +91,8 @@ let textInput = mod.addBoolSetting(
 );
 let worldChange = mod.addBoolSetting(
     "worldChange",
-    "Log World Changes",
-    "Logs when the world changes (ex. dimensions, transfer packets)",
+    "Log Dimension Changes",
+    "Logs when the dimension changes (commonly used by servers to move across games)",
     true
 )
 
